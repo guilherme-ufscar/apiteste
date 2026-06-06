@@ -6,6 +6,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./apostila_api.html:/usr/share/nginx/html/apostila_api.html:ro
     depends_on:
       - backend
       - frontend
