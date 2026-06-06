@@ -2133,67 +2133,79 @@ const HINTS = {
   40: "<code>assert</code> lança <code>AssertionError</code> se falso — forma simples de testar. Média esperada: (8+7.5+9)/3 ≈ 8.17."
 };
 
-const ANSWERS = {
-  1:  "<strong>Status:</strong> 200 OK<br><strong>Body:</strong> <code>[]</code> ou array com objetos aluno<br><div class='modal-result'><strong>Saída no terminal</strong>200<br>0 alunos</div>",
-  2:  "<strong>Status:</strong> 200 OK<br><strong>Body:</strong> array de objetos professor<div class='modal-result'><strong>Saída no terminal</strong>[]</div>",
-  3:  "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>Alunos: 0<br>Professores: 0<br>Matrículas ativas: 0</div>",
-  4:  "<strong>Status:</strong> 201 Created<div class='modal-result'><strong>JSON retornado (resumo)</strong>{\"id\": 1, \"name\": \"Carlos Oliveira\", \"is_active\": true}</div>",
-  5:  "<strong>Status:</strong> 201 Created<div class='modal-result'><strong>JSON retornado (resumo)</strong>{\"id\": 2, \"name\": \"Profa. Fernanda Lima\"}</div>",
-  6:  "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>Carlos Oliveira</div>",
-  7:  "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>[ALG101] Algoritmos<br>[MAT201] Matemática<br>...</div>",
-  8:  "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>200<br>(16) 99988-7766</div>",
-  9:  "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>0 período(s) ativo(s) &nbsp;<em>(ou mais, se já existirem)</em></div>",
-  10: "<strong>Status:</strong> 404 Not Found<div class='modal-result'><strong>JSON retornado</strong>{\"detail\": \"Student not found\"}</div>",
-  11: "<strong>Status:</strong> 201 Created<div class='modal-result'><strong>Saída no terminal</strong>Período criado: 1</div>",
-  12: "<strong>Status:</strong> 201 Created<div class='modal-result'><strong>JSON retornado (resumo)</strong>{\"id\": 3, \"name\": \"Algoritmos\", \"code\": \"ALG101\"}</div>",
-  13: "<strong>Status:</strong> 201 Created<div class='modal-result'><strong>Saída no terminal</strong>Matrícula: 1</div>",
-  14: "<strong>Status:</strong> 200 ou 201<div class='modal-result'><strong>JSON retornado</strong>{\"grade_type\": \"AV1\", \"value\": 7.5}</div>",
-  15: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>AV1: 7.5</div>",
-  16: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Body:</strong> lista filtrada apenas com alunos que têm \"carlos\" no nome</div>",
-  17: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>Profa. Fernanda Lima Silva</div>",
-  18: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>Aluno: Carlos Oliveira<br>&nbsp;&nbsp;Algoritmos: 7.5</div>",
-  19: "<strong>Status:</strong> 422 Unprocessable Entity<div class='modal-result'><strong>Saída no terminal</strong>Campo ['body','email']: field required</div>",
-  20: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída no terminal</strong>200<br>False</div>",
-  21: "<strong>Status de todos os POSTs:</strong> 201<div class='modal-result'><strong>Saída no terminal</strong>Setup: 5 alunos, 3 disciplinas</div>",
-  22: "<strong>Total de matrículas:</strong> 15 (5 alunos × 3 disciplinas)<div class='modal-result'><strong>Saída no terminal</strong>15 matrículas criadas</div>",
-  23: "<strong>Total de requisições:</strong> 45 (15 matrículas × 3 tipos)<div class='modal-result'><strong>Saída no terminal</strong>Notas lançadas para todas as matrículas</div>",
-  24: "<strong>3 linhas</strong>, uma por disciplina, com médias entre 4.0 e 10.0<div class='modal-result'><strong>Exemplo de saída</strong>Disciplina 1: média 7.23<br>Disciplina 2: média 6.80<br>Disciplina 3: média 8.11</div>",
-  25: "<strong>Status:</strong> 200 OK<div class='modal-result'><strong>Saída (exemplo)</strong>2 registros de reprovação<br>&nbsp;&nbsp;Aluno 3 — Matemática (5.3)</div>",
-  26: "<div class='modal-result'><strong>Saída (exemplo — valores aleatórios)</strong>Taxa de aprovação: 60.0% (9/15)</div>",
-  27: "<div class='modal-result'><strong>Saída no terminal</strong>1ª tentativa: 201<br>2ª tentativa: 400<br>Student already enrolled...</div>",
-  28: "<strong>Status:</strong> 422 Unprocessable Entity<div class='modal-result'><strong>JSON retornado (resumo)</strong>{\"detail\": [{\"loc\": [\"body\",\"value\"], \"msg\": \"ensure this value is less than or equal to 10\"}]}</div>",
-  29: "<div class='modal-result'><strong>Saída no terminal</strong>N alunos &nbsp;<em>(sem erro = servidor respondeu dentro do timeout)</em></div>",
-  30: "<div class='modal-result'><strong>Saída no terminal</strong>boletins.csv gerado!<br><br><strong>CSV gerado:</strong><br>Aluno,Disciplina,Média,Situação<br>Aluno 1,Matemática,7.8,Aprovado<br>...</div>",
-  31: "<div class='modal-result'><strong>Saída (exemplo)</strong>=== RANKING ===<br>1º Aluno Exercicio 3: 8.40<br>2º Aluno Exercicio 1: 7.90<br>...</div>",
-  32: "<div class='modal-result'><strong>Saída no terminal</strong>Frequência registrada<br>(9 requisições POST — 3 matrículas × 3 datas)</div>",
-  33: "<div class='modal-result'><strong>Saída no terminal</strong>Frequência: 3/3 = 100%</div>",
-  34: "<div class='modal-result'><strong>Saída no terminal</strong>Nova matrícula: ID=16 no período 2026/1</div>",
-  35: "<div class='modal-result'><strong>Saída (exemplo)</strong>Matemática → Prof. Professor 1 (✓ ativo)<br>Física → Prof. Professor 2 (✓ ativo)<br>Química → Prof. Professor 3 (✓ ativo)</div>",
-  36: "<div class='modal-result'><strong>Saída (exemplo)</strong>--- Página 1 ---<br>&nbsp;&nbsp;[1] Aluno 1<br>&nbsp;&nbsp;[2] Aluno 2<br>&nbsp;&nbsp;[3] Aluno 3<br>--- Página 2 ---<br>...</div>",
-  37: "<div class='modal-result'><strong>Saída no terminal</strong>Erro em Sem Email: 422<br>Resultado: 3 criados, 1 erros</div>",
-  38: "<div class='modal-result'><strong>Saída no terminal</strong>Registros AV1: 1<br>Valor final: 8.0</div>",
-  39: "<div class='modal-result'><strong>Saída (exemplo)</strong>=== COMPARATIVO ENTRE DISCIPLINAS ===<br>Algoritmos           | média 7.2 | 4/5 aprovados<br>Física               | média 6.9 | 3/5 aprovados<br>Química              | média 8.0 | 5/5 aprovados</div>",
-  40: "<div class='modal-result'><strong>Saída no terminal</strong>✓ Pipeline completo validado com sucesso!<br>&nbsp;&nbsp;Aluno: Aluno Final<br>&nbsp;&nbsp;Disciplina: Validação<br>&nbsp;&nbsp;Média: 8.17<br>&nbsp;&nbsp;Aprovado: True</div>"
+const EXPECTED = {
+  1:  "Status <strong>200</strong> · Body: <code>[]</code> ou array com objetos aluno<div class='modal-result'><strong>Terminal</strong>200<br>0 alunos</div>",
+  2:  "Status <strong>200</strong> · Body: array de objetos professor<div class='modal-result'><strong>Terminal</strong>[]</div>",
+  3:  "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>Alunos: 0<br>Professores: 0<br>Matrículas ativas: 0</div>",
+  4:  "Status <strong>201 Created</strong><div class='modal-result'><strong>JSON retornado</strong>{\"id\": 1, \"name\": \"Carlos Oliveira\", \"is_active\": true}</div>",
+  5:  "Status <strong>201 Created</strong><div class='modal-result'><strong>JSON retornado</strong>{\"id\": 2, \"name\": \"Profa. Fernanda Lima\"}</div>",
+  6:  "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>Carlos Oliveira</div>",
+  7:  "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>[ALG101] Algoritmos<br>[MAT201] Matemática<br>...</div>",
+  8:  "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>200<br>(16) 99988-7766</div>",
+  9:  "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>0 período(s) ativo(s) <em>(ou mais, se já existirem)</em></div>",
+  10: "Status <strong>404 Not Found</strong><div class='modal-result'><strong>JSON retornado</strong>{\"detail\": \"Student not found\"}</div>",
+  11: "Status <strong>201 Created</strong><div class='modal-result'><strong>Terminal</strong>Período criado: 1</div>",
+  12: "Status <strong>201 Created</strong><div class='modal-result'><strong>JSON retornado</strong>{\"id\": 3, \"name\": \"Algoritmos\", \"code\": \"ALG101\"}</div>",
+  13: "Status <strong>201 Created</strong><div class='modal-result'><strong>Terminal</strong>Matrícula: 1</div>",
+  14: "Status <strong>200 ou 201</strong><div class='modal-result'><strong>JSON retornado</strong>{\"grade_type\": \"AV1\", \"value\": 7.5}</div>",
+  15: "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>AV1: 7.5</div>",
+  16: "Status <strong>200</strong><div class='modal-result'><strong>Body:</strong> lista filtrada com alunos que contêm \"carlos\" no nome</div>",
+  17: "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>Profa. Fernanda Lima Silva</div>",
+  18: "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>Aluno: Carlos Oliveira<br>&nbsp;&nbsp;Algoritmos: 7.5</div>",
+  19: "Status <strong>422 Unprocessable Entity</strong><div class='modal-result'><strong>Terminal</strong>Campo ['body','email']: field required</div>",
+  20: "Status <strong>200</strong><div class='modal-result'><strong>Terminal</strong>200<br>False</div>",
+  21: "Todos os POSTs retornam <strong>201</strong><div class='modal-result'><strong>Terminal</strong>Setup: 5 alunos, 3 disciplinas</div>",
+  22: "15 matrículas (5×3)<div class='modal-result'><strong>Terminal</strong>15 matrículas criadas</div>",
+  23: "45 requisições POST (15×3 tipos)<div class='modal-result'><strong>Terminal</strong>Notas lançadas para todas as matrículas</div>",
+  24: "3 linhas, uma por disciplina<div class='modal-result'><strong>Exemplo</strong>Disciplina 1: média 7.23<br>Disciplina 2: média 6.80<br>Disciplina 3: média 8.11</div>",
+  25: "Status <strong>200</strong><div class='modal-result'><strong>Exemplo</strong>2 registros de reprovação<br>&nbsp;&nbsp;Aluno 3 — Matemática (5.3)</div>",
+  26: "<div class='modal-result'><strong>Exemplo (valores aleatórios)</strong>Taxa de aprovação: 60.0% (9/15)</div>",
+  27: "<div class='modal-result'><strong>Terminal</strong>1ª tentativa: 201<br>2ª tentativa: 400<br>Student already enrolled...</div>",
+  28: "Status <strong>422 Unprocessable Entity</strong><div class='modal-result'><strong>JSON retornado</strong>{\"detail\": [{\"loc\": [\"body\",\"value\"], \"msg\": \"...less than or equal to 10\"}]}</div>",
+  29: "<div class='modal-result'><strong>Terminal</strong>N alunos <em>(sem erro = servidor respondeu dentro do timeout)</em></div>",
+  30: "<div class='modal-result'><strong>Terminal</strong>boletins.csv gerado!<br><br>Aluno,Disciplina,Média,Situação<br>Aluno 1,Matemática,7.8,Aprovado<br>...</div>",
+  31: "<div class='modal-result'><strong>Exemplo</strong>=== RANKING ===<br>1º Aluno Exercicio 3: 8.40<br>2º Aluno Exercicio 1: 7.90<br>...</div>",
+  32: "<div class='modal-result'><strong>Terminal</strong>Frequência registrada<br>(9 POSTs: 3 matrículas × 3 datas)</div>",
+  33: "<div class='modal-result'><strong>Terminal</strong>Frequência: 3/3 = 100%</div>",
+  34: "<div class='modal-result'><strong>Terminal</strong>Nova matrícula: ID=16 no período 2026/1</div>",
+  35: "<div class='modal-result'><strong>Exemplo</strong>Matemática → Prof. Professor 1 (✓ ativo)<br>Física → Prof. Professor 2 (✓ ativo)</div>",
+  36: "<div class='modal-result'><strong>Exemplo</strong>--- Página 1 ---<br>&nbsp;&nbsp;[1] Aluno 1 / [2] Aluno 2 / [3] Aluno 3<br>--- Página 2 ---<br>...</div>",
+  37: "<div class='modal-result'><strong>Terminal</strong>Erro em Sem Email: 422<br>Resultado: 3 criados, 1 erros</div>",
+  38: "<div class='modal-result'><strong>Terminal</strong>Registros AV1: 1<br>Valor final: 8.0</div>",
+  39: "<div class='modal-result'><strong>Exemplo</strong>Algoritmos     | média 7.2 | 4/5 aprovados<br>Física         | média 6.9 | 3/5 aprovados</div>",
+  40: "<div class='modal-result'><strong>Terminal</strong>✓ Pipeline completo validado com sucesso!<br>&nbsp;&nbsp;Aluno: Aluno Final / Média: 8.17 / Aprovado: True</div>"
 };
 
 const SVG_BULB = '<path d="M9 21h6M12 3a6 6 0 016 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 016-6z"/>';
 const SVG_EYE  = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 
+/* code blocks extracted at DOMContentLoaded, keyed by exercise number */
+const CODE_BLOCKS = {};
+
 function openModal(type, num) {
-  const isHint = type === 'hint';
-  const overlay = document.getElementById('exModal');
-  const head    = document.getElementById('modalHead');
-  const iconWrap= document.getElementById('modalIconWrap');
-  document.getElementById('modalSvg').innerHTML   = isHint ? SVG_BULB : SVG_EYE;
+  var isHint = type === 'hint';
+  var overlay  = document.getElementById('exModal');
+  var iconWrap = document.getElementById('modalIconWrap');
+  var head     = document.getElementById('modalHead');
+  document.getElementById('modalSvg').innerHTML    = isHint ? SVG_BULB : SVG_EYE;
   document.getElementById('modalSvg').style.stroke = isHint ? '#92400e' : '#1d4ed8';
   iconWrap.className = 'modal-icon-wrap ' + (isHint ? 'is-hint' : 'is-answer');
   head.className     = 'modal-head '      + (isHint ? 'is-hint' : 'is-answer');
-  const labelSvg = isHint
-    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21h6M12 3a6 6 0 016 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 016-6z"/></svg> Dica'
-    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Resposta Esperada';
-  document.getElementById('modalLabel').innerHTML = labelSvg;
+  var labelSvg = isHint
+    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_BULB + '</svg> Dica'
+    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_EYE  + '</svg> Solução';
+  document.getElementById('modalLabel').innerHTML  = labelSvg;
   document.getElementById('modalTitle').textContent = 'Exercício ' + num;
-  document.getElementById('modalBody').innerHTML    = isHint ? HINTS[num] : ANSWERS[num];
+
+  if (isHint) {
+    document.getElementById('modalBody').innerHTML = HINTS[num] || '';
+  } else {
+    /* show code block + expected output */
+    var code = CODE_BLOCKS[num] || '';
+    var expected = EXPECTED[num] ? '<div style="margin-top:14px;font-size:13px;color:var(--gray-600)">' + EXPECTED[num] + '</div>' : '';
+    document.getElementById('modalBody').innerHTML = code + expected;
+  }
+
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2203,18 +2215,32 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
 document.addEventListener('DOMContentLoaded', function () {
-  const btnHintSVG   = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_BULB + '</svg>';
-  const btnAnswerSVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_EYE  + '</svg>';
+  var SVG_BULB_BTN   = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_BULB + '</svg>';
+  var SVG_ANSWER_BTN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' + SVG_EYE  + '</svg>';
 
-  const chapters = document.querySelectorAll('.chapter');
-  const ch11 = chapters[chapters.length - 1];
+  var chapters = document.querySelectorAll('.chapter');
+  var ch11 = chapters[chapters.length - 1];
+
   ch11.querySelectorAll('h3').forEach(function (h3) {
     var m = h3.textContent.match(/Exerc[íi]cio\s+(\d+)/);
     if (!m) return;
-    var n = m[1];
+    var n = parseInt(m[1], 10);
+
+    /* collect and hide all <pre> elements belonging to this exercise
+       (siblings until next h2/h3) */
+    var pres = [];
+    var el = h3.nextElementSibling;
+    while (el && el.tagName !== 'H3' && el.tagName !== 'H2') {
+      if (el.tagName === 'PRE') pres.push(el);
+      el = el.nextElementSibling;
+    }
+    CODE_BLOCKS[n] = pres.map(function(p) { return p.outerHTML; }).join('');
+    pres.forEach(function(p) { p.style.display = 'none'; });
+
+    /* rebuild h3 with inline buttons */
     var titleText = h3.textContent;
     h3.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:24px 0 8px';
     var span = document.createElement('span');
@@ -2223,8 +2249,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var div = document.createElement('div');
     div.className = 'ex-actions';
     div.innerHTML =
-      '<button class="btn-hint"   onclick="openModal(\'hint\','   + n + ')">' + btnHintSVG   + ' Dica</button>' +
-      '<button class="btn-answer" onclick="openModal(\'answer\',' + n + ')">' + btnAnswerSVG + ' Ver Resposta</button>';
+      '<button class="btn-hint"   onclick="openModal(\'hint\','   + n + ')">' + SVG_BULB_BTN   + ' Dica</button>' +
+      '<button class="btn-answer" onclick="openModal(\'answer\',' + n + ')">' + SVG_ANSWER_BTN + ' Ver Resposta</button>';
     h3.textContent = '';
     h3.appendChild(span);
     h3.appendChild(div);
