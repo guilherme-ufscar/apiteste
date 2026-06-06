@@ -466,6 +466,9 @@
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
   .is-hint   .modal-head-label { color: #92400e; }
   .is-answer .modal-head-label { color: #1d4ed8; }
@@ -2185,7 +2188,10 @@ function openModal(type, num) {
   document.getElementById('modalSvg').style.stroke = isHint ? '#92400e' : '#1d4ed8';
   iconWrap.className = 'modal-icon-wrap ' + (isHint ? 'is-hint' : 'is-answer');
   head.className     = 'modal-head '      + (isHint ? 'is-hint' : 'is-answer');
-  document.getElementById('modalLabel').textContent = isHint ? '💡 Dica' : '👁 Resposta Esperada';
+  const labelSvg = isHint
+    ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21h6M12 3a6 6 0 016 6c0 2.5-1.5 4.5-3 6H9c-1.5-1.5-3-3.5-3-6a6 6 0 016-6z"/></svg> Dica'
+    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Resposta Esperada';
+  document.getElementById('modalLabel').innerHTML = labelSvg;
   document.getElementById('modalTitle').textContent = 'Exercício ' + num;
   document.getElementById('modalBody').innerHTML    = isHint ? HINTS[num] : ANSWERS[num];
   overlay.classList.add('open');
