@@ -17,4 +17,4 @@ class Subject(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     teacher = relationship("Teacher", back_populates="subjects")
-    enrollments = relationship("Enrollment", back_populates="subject")
+    enrollments = relationship("Enrollment", back_populates="subject", passive_deletes=True)

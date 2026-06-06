@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session, joinedload
 from typing import Optional
 from app.models.enrollment import Enrollment
+from app.models.subject import Subject
 from app.models.grade import Grade
 from app.models.attendance import Attendance
 from app.schemas.enrollment import EnrollmentCreate, EnrollmentPatch
@@ -12,7 +13,7 @@ def get_multi(db: Session, student_id: Optional[int] = None, subject_id: Optiona
               period_id: Optional[int] = None, status: Optional[str] = None, skip: int = 0, limit: int = 100):
     q = db.query(Enrollment).options(
         joinedload(Enrollment.student),
-        joinedload(Enrollment.subject).joinedload("teacher"),
+        joinedload(Enrollment.subject).joinedload(Subject.teacher),
         joinedload(Enrollment.period),
     )
     if student_id:
@@ -29,7 +30,7 @@ def get_multi(db: Session, student_id: Optional[int] = None, subject_id: Optiona
 def get(db: Session, enrollment_id: int):
     return db.query(Enrollment).options(
         joinedload(Enrollment.student),
-        joinedload(Enrollment.subject).joinedload("teacher"),
+        joinedload(Enrollment.subject).joinedload(Subject.teacher),
         joinedload(Enrollment.period),
     ).filter(Enrollment.id == enrollment_id).first()
 

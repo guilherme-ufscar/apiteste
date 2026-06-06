@@ -1457,10 +1457,10 @@ r = s.<span class="fn">get</span>(f<span class="st">"{BASE}/students/{aluno['id'
           params={<span class="st">"period_id"</span>: periodo[<span class="st">"id"</span>]})
 boletim = r.<span class="fn">json</span>()
 
-<span class="fn">print</span>(<span class="st">f"\nBoletim de {aluno['name']}"</span>)
-<span class="kw">for</span> disc <span class="kw">in</span> boletim[<span class="st">"subjects"</span>]:
+<span class="fn">print</span>(<span class="st">f"\nBoletim de {boletim['student']['name']}"</span>)
+<span class="kw">for</span> disc <span class="kw">in</span> boletim[<span class="st">"report"</span>]:
     status = <span class="st">"✓ Aprovado"</span> <span class="kw">if</span> disc[<span class="st">"passed"</span>] <span class="kw">else</span> <span class="st">"✗ Reprovado"</span>
-    <span class="fn">print</span>(<span class="st">f"  {disc['subject_name']}: média {disc['average']:.1f} — {status}"</span>)</code></pre>
+    <span class="fn">print</span>(<span class="st">f"  {disc['subject']['name']}: média {disc['average_grade']:.1f} — {status}"</span>)</code></pre>
 
   <h2>Lendo múltiplos recursos com loop</h2>
   <pre><code><span class="cm"># Lista todos os alunos e imprime os ativos</span>
@@ -1670,7 +1670,7 @@ enrollment_id = r.json()[<span class="st">"id"</span>]
   <p>Use query parameter para filtrar alunos que contêm "carlos" no nome.</p>
   <pre><code>r = requests.<span class="fn">get</span>(
     <span class="st">"https://apiteste.codermaster.com.br/api/v1/students"</span>,
-    params={<span class="st">"search"</span>: <span class="st">"carlos"</span>}
+    params={<span class="st">"name"</span>: <span class="st">"carlos"</span>}
 )
 <span class="fn">print</span>(r.json())</code></pre>
 
@@ -1694,9 +1694,9 @@ enrollment_id = r.json()[<span class="st">"id"</span>]
     params={<span class="st">"period_id"</span>: periodo_id}
 )
 boletim = r.json()
-<span class="fn">print</span>(<span class="st">f"Aluno: {boletim['student_name']}"</span>)
-<span class="kw">for</span> disc <span class="kw">in</span> boletim.get(<span class="st">"subjects"</span>, []):
-    <span class="fn">print</span>(<span class="st">f"  {disc['subject_name']}: {disc.get('average', 'sem nota')}"</span>)</code></pre>
+<span class="fn">print</span>(<span class="st">f"Aluno: {boletim['student']['name']}"</span>)
+<span class="kw">for</span> disc <span class="kw">in</span> boletim.get(<span class="st">"report"</span>, []):
+    <span class="fn">print</span>(<span class="st">f"  {disc['subject']['name']}: {disc.get('average_grade', 'sem nota')}"</span>)</code></pre>
 
   <h3>Exercício 19 — Enviar dados inválidos e capturar 422</h3>
   <p>Tente criar um aluno sem o campo obrigatório <code>email</code> e leia o erro de validação.</p>
@@ -1816,7 +1816,7 @@ medias_por_disc = defaultdict(<span class="fn">list</span>)
 reprovados = r.json()
 <span class="fn">print</span>(<span class="st">f"{len(reprovados)} registros de reprovação"</span>)
 <span class="kw">for</span> row <span class="kw">in</span> reprovados[:5]:
-    <span class="fn">print</span>(<span class="st">f"  {row['student_name']} — {row['subject']} ({row['average']:.1f})"</span>)</code></pre>
+    <span class="fn">print</span>(<span class="st">f"  {row['student']} — {row['subject']} ({row['average']:.1f})"</span>)</code></pre>
 
   <h3>Exercício 26 — Calcular taxa de aprovação do período</h3>
   <p>Use o resumo de notas para calcular quantos % dos registros são aprovações (média ≥ 6).</p>
@@ -1889,11 +1889,11 @@ resultado = <span class="fn">api_get</span>(<span class="st">"/students"</span>)
             params={<span class="st">"period_id"</span>: periodo[<span class="st">"id"</span>]}
         )
         boletim = r.<span class="fn">json</span>()
-        <span class="kw">for</span> disc <span class="kw">in</span> boletim.get(<span class="st">"subjects"</span>, []):
+        <span class="kw">for</span> disc <span class="kw">in</span> boletim.get(<span class="st">"report"</span>, []):
             situacao = <span class="st">"Aprovado"</span> <span class="kw">if</span> disc.get(<span class="st">"passed"</span>) <span class="kw">else</span> <span class="st">"Reprovado"</span>
-            media = disc.get(<span class="st">"average"</span>)
+            media = disc.get(<span class="st">"average_grade"</span>)
             writer.<span class="fn">writerow</span>([
-                boletim[<span class="st">"student_name"</span>], disc[<span class="st">"subject_name"</span>],
+                boletim[<span class="st">"student"</span>][<span class="st">"name"</span>], disc[<span class="st">"subject"</span>][<span class="st">"name"</span>],
                 f<span class="st">"{media:.1f}"</span> <span class="kw">if</span> media <span class="kw">else</span> <span class="st">"—"</span>, situacao
             ])
 
@@ -2057,15 +2057,15 @@ mat = <span class="fn">criar</span>(<span class="st">"/enrollments"</span>, {<sp
 boletim = s.<span class="fn">get</span>(f<span class="st">"{BASE}/students/{aluno['id']}/report-card"</span>,
     params={<span class="st">"period_id"</span>:per[<span class="st">"id"</span>]}).json()
 
-assert boletim[<span class="st">"student_name"</span>] == <span class="st">"Aluno Final"</span>
-subj = boletim[<span class="st">"subjects"</span>][<span class="nb">0</span>]
-assert subj[<span class="st">"average"</span>] == <span class="fn">round</span>((<span class="nb">8.0</span>+<span class="nb">7.5</span>+<span class="nb">9.0</span>)/<span class="nb">3</span>, <span class="nb">2</span>)
+assert boletim[<span class="st">"student"</span>][<span class="st">"name"</span>] == <span class="st">"Aluno Final"</span>
+subj = boletim[<span class="st">"report"</span>][<span class="nb">0</span>]
+assert subj[<span class="st">"average_grade"</span>] == <span class="fn">round</span>((<span class="nb">8.0</span>+<span class="nb">7.5</span>+<span class="nb">9.0</span>)/<span class="nb">3</span>, <span class="nb">2</span>)
 assert subj[<span class="st">"passed"</span>] == <span class="kw">True</span>
 
 <span class="fn">print</span>(<span class="st">"✓ Pipeline completo validado com sucesso!"</span>)
-<span class="fn">print</span>(<span class="st">f"  Aluno: {boletim['student_name']}"</span>)
-<span class="fn">print</span>(<span class="st">f"  Disciplina: {subj['subject_name']}"</span>)
-<span class="fn">print</span>(<span class="st">f"  Média: {subj['average']}"</span>)
+<span class="fn">print</span>(<span class="st">f"  Aluno: {boletim['student']['name']}"</span>)
+<span class="fn">print</span>(<span class="st">f"  Disciplina: {subj['subject']['name']}"</span>)
+<span class="fn">print</span>(<span class="st">f"  Média: {subj['average_grade']}"</span>)
 <span class="fn">print</span>(<span class="st">f"  Aprovado: {subj['passed']}"</span>)</code></pre>
 
 </div>
@@ -2106,7 +2106,7 @@ const HINTS = {
   13: "A matrícula exige os 3 IDs: <code>student_id</code>, <code>subject_id</code> e <code>period_id</code>.",
   14: "<code>grade_type</code> deve ser exatamente <code>\"AV1\"</code>, <code>\"AV2\"</code> ou <code>\"AV3\"</code>. Valor entre 0 e 10.",
   15: "Percorra com <code>for nota in r.json()</code> e acesse <code>nota['grade_type']</code> e <code>nota['value']</code>.",
-  16: "Passe o filtro via <code>params={\"search\":\"carlos\"}</code> — requests codifica automaticamente na URL.",
+  16: "Passe o filtro via <code>params={\"name\":\"carlos\"}</code> — o parâmetro do endpoint é <code>name</code>, não <code>search</code>.",
   17: "PUT exige o objeto completo. Omitir campos pode nulificá-los. Difere do PATCH que aceita parcial.",
   18: "Passe <code>period_id</code> como query param. O boletim agrupa notas e calcula médias por disciplina.",
   19: "FastAPI valida o corpo com Pydantic — campos obrigatórios ausentes geram <code>422 Unprocessable Entity</code>.",

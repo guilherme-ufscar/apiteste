@@ -6,6 +6,7 @@ from app.schemas.student import StudentCreate, StudentUpdate, StudentPatch, Stud
 from app.schemas.enrollment import EnrollmentRead
 from app.schemas.grade import GradeRead
 from app.models.enrollment import Enrollment
+from app.models.subject import Subject
 from app.models.grade import Grade
 from app.models.attendance import Attendance
 from app.crud import student as crud
@@ -60,7 +61,7 @@ def delete_student(student_id: int, db: Session = Depends(get_db)):
 @router.get("/{student_id}/enrollments", response_model=List[EnrollmentRead])
 def student_enrollments(student_id: int, db: Session = Depends(get_db)):
     return db.query(Enrollment).options(
-        joinedload(Enrollment.subject).joinedload("teacher"),
+        joinedload(Enrollment.subject).joinedload(Subject.teacher),
         joinedload(Enrollment.period),
     ).filter(Enrollment.student_id == student_id).all()
 
