@@ -92,26 +92,26 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-60 flex-shrink-0 h-screen sticky top-0 flex flex-col bg-ink-900/95 border-r border-ink-700/60 backdrop-blur-md">
+    <aside className="w-60 flex-shrink-0 h-screen sticky top-0 flex flex-col bg-white border-r border-slate-200">
       {/* Logo */}
-      <div className="px-5 py-6 border-b border-ink-700/50">
+      <div className="px-5 py-5 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-azure/15 border border-azure/25 flex items-center justify-center shadow-glow-sm">
-            <svg className="w-5 h-5 text-azure" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-9 h-9 rounded-xl bg-azure flex items-center justify-center shadow-sm">
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                 d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
             </svg>
           </div>
           <div>
-            <p className="font-display text-base font-semibold text-mist-100 leading-tight">Escola</p>
-            <p className="text-xs text-mist-500 leading-tight">Gestão Acadêmica</p>
+            <p className="font-display text-base font-semibold text-slate-900 leading-tight">Escola</p>
+            <p className="text-xs text-slate-400 leading-tight">Gestão Acadêmica</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-0.5">
-        <p className="px-3 mb-2 text-xs font-medium text-mist-600 uppercase tracking-widest">Menu</p>
+        <p className="px-3 mb-2 text-xs font-semibold text-slate-400 uppercase tracking-widest">Menu</p>
         {nav.map(item => (
           <NavLink
             key={item.to}
@@ -120,20 +120,17 @@ export default function Sidebar() {
           >
             <span className="flex-shrink-0">{item.icon}</span>
             <span>{item.label}</span>
-            {isActive(item.to) && (
-              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-azure" />
-            )}
           </NavLink>
         ))}
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-ink-700/50">
+      <div className="px-5 py-4 border-t border-slate-100">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          <p className="text-xs text-mist-500">API Conectada</p>
+          <p className="text-xs text-slate-500">API Conectada</p>
         </div>
-        <p className="text-xs text-mist-600 mt-1">v1.0.0</p>
+        <p className="text-xs text-slate-400 mt-0.5">v1.0.0</p>
       </div>
     </aside>
   )

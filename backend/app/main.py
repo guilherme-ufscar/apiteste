@@ -25,6 +25,7 @@ Cada operação mostra o método HTTP, URL, body esperado e resposta.
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    root_path="/api",
 )
 
 app.add_middleware(

@@ -8,7 +8,7 @@ export default function Layout() {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto bg-slate-50">
           <div className="p-6 animate-fade-in">
             <Outlet />
           </div>

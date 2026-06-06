@@ -18,10 +18,10 @@ export default function Header() {
   const info = titles[base] ?? { title: 'Escola', subtitle: '' }
 
   return (
-    <header className="sticky top-0 z-10 bg-ink-950/90 backdrop-blur-md border-b border-ink-700/50 px-6 py-4">
+    <header className="sticky top-0 z-10 bg-white border-b border-slate-200 px-6 py-4">
       <div>
-        <h1 className="font-display text-xl font-semibold text-mist-100 leading-tight">{info.title}</h1>
-        {info.subtitle && <p className="text-xs text-mist-500 mt-0.5">{info.subtitle}</p>}
+        <h1 className="font-display text-xl font-semibold text-slate-900 leading-tight">{info.title}</h1>
+        {info.subtitle && <p className="text-xs text-slate-400 mt-0.5">{info.subtitle}</p>}
       </div>
     </header>
   )
